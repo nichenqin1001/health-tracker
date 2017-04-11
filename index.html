@@ -19,13 +19,36 @@
                         <button type="button" id="search-food" class="btn btn-primary">搜索</button>
                     </form>
                     <div class="row">
-                        <div class="col-md-12"></div>
+                        <div class="col-md-12">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <td>Item</td>
+                                        <td>Calories</td>
+                                        <td>Acion</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="search-results-container"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6"></div>
             </div>
         </div>
     </div>
+
+    <script type="text/template" id="search-result">
+        <td>
+            apple
+        </td>
+        <td>
+            123
+        </td>
+        <td>
+            <button class="btn btn-warning">修改</button>
+        </td>
+    </script>
 </body>
 
 </html>

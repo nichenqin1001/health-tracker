@@ -1,7 +1,9 @@
+window.app = window.app || {};
+
 (function () {
     app.AppView = Backbone.View.extend({
 
-        el: $('#app'),
+        el: '#app',
 
         events: {
             'click #search-food': 'getFood'
