@@ -1,9 +1,15 @@
 import { Collection } from 'backbone';
 import FoodModel from '../models/food-model';
+import { LocalStorage } from 'backbone.localstorage';
 
-export default Collection.extend({
+var FoodsCollection = Collection.extend({
 
-    model: FoodModel
+    model: FoodModel,
+
+    localStorage: new LocalStorage('foodsCollection'),
 
 });
 
+var foods = new FoodsCollection();
+
+module.exports = foods;

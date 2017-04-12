@@ -1,3 +1,6 @@
 <%= name %>
 <%= calories %>
-<button class="btn btn-primary btn-xs pull-right">Add</button>
+    <button class="btn btn-primary btn-xs pull-right add-food">Add</button>
+<%if (calories>100) { %>
+    <span class="glyphicon glyphicon-plus"><span>
+<% } %>

@@ -1,9 +1,8 @@
 import { View } from 'backbone';
 import $ from 'jquery';
 
-import FoodModel from '../models/food-model';
-import FoodCollection from '../collections/foods-collection';
-import FoodsView from '../views/foods-view';
+import foods from '../collections/foods-collection';
+import FoodsView from './foods-view';
 
 var AppView = View.extend({
 
@@ -13,31 +12,41 @@ var AppView = View.extend({
         'click #search-food': 'getFood'
     },
 
+    initialize() {
+
+        foods.reset();
+        this.listenTo(foods, 'add', this.render);
+
+    },
+
+    renderList(food) {
+
+        console.log(food);
+
+    },
+
     getFood() {
 
         $('#foods').empty();
         var searchFoodText = $('#seach-food-text').val();
         $.getJSON('https://api.nutritionix.com/v1_1/search/' + searchFoodText + '?', {
-            'results': '0:20',
-            'fields': 'item_name,brand_name,item_id,brand_id,nf_calories',
+            'results': '0:10',
+            'fields': 'item_name,nf_calories',
             'appId': 'e24d74f6',
             'appKey': 'd9c92ac01b23ea5673b1de38ca46e84c'
         }, data => {
 
+            foods.reset();
             var results = data.hits;
-            var foods = new FoodCollection();
-            var food;
-            for (var i = 0; i < results.length; i++) {
+            results.forEach(food => {
 
-                food = new FoodModel({
-                    name: results[i].fields.item_name,
-                    calories: results[i].fields.nf_calories
-                });
-                foods.add(food);
+                foods.add({ name: food.fields.item_name, calories: food.fields.nf_calories });
 
-            }
+            });
             var foodsView = new FoodsView({ model: foods });
             foodsView.render();
+
+            console.log(foods);
 
         });
 

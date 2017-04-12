@@ -9,23 +9,32 @@
 </head>
 
 <body>
-    <div class="container">
-        <div id="app">
-            <h1>健康跟踪应用</h1>
+    <div id="app">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <a class="navbar-brand" href="#">健康跟踪应用</a>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" id="search-food-text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="button" id="search-food" class="btn btn-default">搜索</button>
+                </form>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <form class="form-inline">
-                        <input type="search" id="search-food-text" class="form-control" placeholder="ex: apple">
-                        <button type="button" id="search-food" class="btn btn-primary">搜索</button>
-                    </form>
                     <h2>搜索结果</h2>
                     <div id="foods" class="list-group"></div>
                 </div>
-                <div class="col-md-6"></div>
-            </div>
+            <div class="col-md-6"></div>
         </div>
     </div>
-    
+
 </body>
 
 </html>

@@ -5,6 +5,12 @@ export default View.extend({
 
     el: '#foods',
 
+    initialize() {
+
+        this.listenTo(this.model, 'change', this.render);
+
+    },
+
     render() {
 
         this.model.each(food => {

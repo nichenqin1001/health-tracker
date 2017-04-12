@@ -2,9 +2,10 @@ import { Model } from 'backbone';
 
 export default Model.extend({
 
-    default: {
+    defaults: {
         name: '',
-        calories: 0
+        calories: 0,
+        selected: false
     }
 
 });
