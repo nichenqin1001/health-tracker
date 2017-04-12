@@ -28,7 +28,7 @@ export default View.extend({
 
     addFood() {
 
-        console.log('add food');
+        console.log(this);
 
     }
 

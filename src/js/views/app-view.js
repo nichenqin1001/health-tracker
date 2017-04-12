@@ -2,6 +2,7 @@ import { View } from 'backbone';
 import $ from 'jquery';
 
 import foods from '../collections/foods-collection';
+import selectedFoods from '../collections/selected-foods-collection';
 import FoodView from './food-view';
 
 import template from './app-template.html';
@@ -61,9 +62,9 @@ var AppView = View.extend({
 
             foods.reset();
             var results = data.hits;
-            results.forEach(food => {
+            results.forEach((food, index) => {
 
-                foods.add({ name: food.fields.item_name, calories: food.fields.nf_calories });
+                foods.add({ name: food.fields.item_name, calories: food.fields.nf_calories, id: index });
 
             });
 
