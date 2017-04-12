@@ -2044,7 +2044,7 @@ loader-runner@^2.3.0:
   version "2.3.0"
   resolved "http://registry.npm.taobao.org/loader-runner/download/loader-runner-2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
 
-loader-utils@^0.2.16:
+loader-utils@^0.2.11, loader-utils@^0.2.16:
   version "0.2.17"
   resolved "http://registry.npm.taobao.org/loader-utils/download/loader-utils-0.2.17.tgz#f86e6374d43205a6e6c60e9196f17c0299bfb348"
   dependencies:
@@ -3406,6 +3406,13 @@ uglify-to-browserify@~1.0.0:
 uid-number@^0.0.6:
   version "0.0.6"
   resolved "http://registry.npm.taobao.org/uid-number/download/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
+
+underscore-template-loader@^0.7.3:
+  version "0.7.3"
+  resolved "http://registry.npm.taobao.org/underscore-template-loader/download/underscore-template-loader-0.7.3.tgz#1dc2c7376ee8c2ae8b5e7dcfb3631407942d9903"
+  dependencies:
+    fastparse "^1.1.1"
+    loader-utils "^0.2.11"
 
 underscore@>=1.8.3:
   version "1.8.3"

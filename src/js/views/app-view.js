@@ -5,8 +5,6 @@ import FoodModel from '../models/food-model';
 import FoodCollection from '../collections/foods-collection';
 import FoodsView from '../views/foods-view';
 
-var foods = new FoodCollection();
-
 var AppView = View.extend({
 
     el: '#app',
@@ -17,7 +15,7 @@ var AppView = View.extend({
 
     getFood() {
 
-        $('#search-food-text').empty();
+        $('#foods').empty();
         var searchFoodText = $('#seach-food-text').val();
         $.getJSON('https://api.nutritionix.com/v1_1/search/' + searchFoodText + '?', {
             'results': '0:20',
@@ -27,9 +25,11 @@ var AppView = View.extend({
         }, data => {
 
             var results = data.hits;
+            var foods = new FoodCollection();
+            var food;
             for (var i = 0; i < results.length; i++) {
 
-                var food = new FoodModel({
+                food = new FoodModel({
                     name: results[i].fields.item_name,
                     calories: results[i].fields.nf_calories
                 });

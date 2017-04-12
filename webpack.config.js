@@ -3,9 +3,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: {
-        app: './src/index.js'
-    },
+    entry: { app: './src/index.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].bundle.js'
@@ -19,20 +17,13 @@ module.exports = {
                 presets: ['es2015']
             }
         },
-        {
-            test: /\.css$/,
-            loader: 'style-loader!css-loader'
-        },
-        {
-            test: /\.(eot|woff|svg|woff2|ttf)$/,
-            loader: "file-loader"
-        }
+        { test: /\.html$/, loader: 'underscore-template-loader' },
+        { test: /\.css$/, loader: 'style-loader!css-loader' },
+        { test: /\.(eot|woff|svg|woff2|ttf)$/, loader: "file-loader" }
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: 'index.html'
-        }),
+        new HtmlWebpackPlugin({ template: 'index.html' }),
         new CleanWebpackPlugin(['dist'])
     ]
 };
