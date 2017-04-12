@@ -1,5 +1,3 @@
-window.app = window.app || {};
+import AppView from './views/app-view';
 
-(function () {
-    new app.AppView();
-}());
+new AppView();

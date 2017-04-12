@@ -1,6 +1,4 @@
-require('./css/index.css');
-require('bootstrap/dist/css/bootstrap.min.css');
+import './css/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-require('./js/views/app-view');
-require('./js/views/food-view');
-require('./js/app');
+import './js/app';

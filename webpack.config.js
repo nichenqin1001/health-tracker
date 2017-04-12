@@ -1,11 +1,9 @@
 var path = require('path');
-var Webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        vendor: ['jquery', 'backbone', 'underscore'],
         app: './src/index.js'
     },
     output: {
@@ -14,26 +12,24 @@ module.exports = {
     },
     module: {
         loaders: [{
-                test: /\.css$/,
-                loader: 'style-loader!css-loader'
-            },
-            {
-                test: /\.(eot|woff|svg|woff2|ttf)$/,
-                loader: "file-loader"
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            query: {
+                presets: ['es2015']
             }
+        },
+        {
+            test: /\.css$/,
+            loader: 'style-loader!css-loader'
+        },
+        {
+            test: /\.(eot|woff|svg|woff2|ttf)$/,
+            loader: "file-loader"
+        }
         ]
     },
     plugins: [
-        new Webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity
-        }),
-        new Webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            Backbone: 'backbone',
-            _: 'underscore'
-        }),
         new HtmlWebpackPlugin({
             template: 'index.html'
         }),

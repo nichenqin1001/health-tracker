@@ -1,14 +1,10 @@
-window.app = window.app || {};
+import { Model } from 'backbone';
 
-(function () {
+export default Model.extend({
 
-    app.FoodModel = Backbone.Model.extend({
+    default: {
+        name: '',
+        calories: 0
+    }
 
-        default: {
-            name: '',
-            calories: 0
-        }
-
-    });
-
-}());
+});
