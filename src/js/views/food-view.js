@@ -1,16 +1,16 @@
 import { View } from 'backbone';
 
-var FoodView = View.extend({
+export default View.extend({
 
-    tagName: 'tr',
+    tagName: 'li',
+
+    className: 'list-group-item',
 
     render() {
 
-        this.$el.html('hello world');
+        this.$el.html(this.model.get('calories'));
         return this;
 
     }
 
 });
-
-module.exports = new FoodView();;
