@@ -1,13 +1,15 @@
 import { View } from 'backbone';
 import $ from 'jquery';
 
+import FoodView from './food-view';
 import foods from '../collections/foods-collection';
 import selectedFoods from '../collections/selected-foods-collection';
-import FoodView from './food-view';
 
 import template from './app-template.html';
 
-var AppView = View.extend({
+foods.fetch();
+
+export default View.extend({
 
     el: '#app',
 
@@ -24,15 +26,20 @@ var AppView = View.extend({
         this.$stats = $('#stats');
 
         this.listenTo(foods, 'add', this.addOne);
+        this.listenTo(selectedFoods, 'all', this.render);
 
         foods.fetch();
+        selectedFoods.fetch();
+
+        console.log(foods);
+        console.log(selectedFoods);
 
     },
 
     render() {
 
         var calories = 0;
-        foods.each(food => {
+        selectedFoods.each(food => {
 
             calories += food.toJSON().calories;
 
@@ -64,14 +71,13 @@ var AppView = View.extend({
             var results = data.hits;
             results.forEach((food, index) => {
 
-                foods.add({ name: food.fields.item_name, calories: food.fields.nf_calories, id: index });
+                foods.create({ name: food.fields.item_name, calories: food.fields.nf_calories, id: index });
 
             });
+            console.log(foods);
 
         });
 
     }
 
 });
-
-module.exports = new AppView();
