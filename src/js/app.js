@@ -1,3 +1,3 @@
-import AppView from './views/app-view';
+import './views/app-view';
+import './views/food-view';
 
-new AppView();

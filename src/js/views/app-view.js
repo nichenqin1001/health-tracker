@@ -1,7 +1,7 @@
 import { View } from 'backbone';
 import $ from 'jquery';
 
-export default View.extend({
+var AppView = View.extend({
 
     el: '#app',
 
@@ -10,6 +10,7 @@ export default View.extend({
     },
 
     getFood() {
+
         $('#search-food-text').empty();
         var searchFoodText = $('#seach-food-text').val();
         $.getJSON('https://api.nutritionix.com/v1_1/search/' + searchFoodText + '?', {
@@ -18,8 +19,13 @@ export default View.extend({
             'appId': 'e24d74f6',
             'appKey': 'd9c92ac01b23ea5673b1de38ca46e84c'
         }, function (data) {
+
             console.log(data);
+
         });
+
     }
 
 });
+
+module.exports = new AppView();

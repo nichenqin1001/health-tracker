@@ -17,6 +17,7 @@
         "no-undef": "warn",
         "no-unreachable": "warn",
         "no-unused-vars": "warn",
+        "no-unexpected-multiline": "warn",
         "constructor-super": "warn",
         "valid-typeof": "warn",
         "brace-style": [
@@ -26,6 +27,7 @@
                 "allowSingleLine": true
             }
         ],
-        "semi": "warn"
+        "semi": "warn",
+        "padded-blocks": 1
     }
 }
