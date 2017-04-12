@@ -2,11 +2,15 @@ import { View } from 'backbone';
 import $ from 'jquery';
 
 import foods from '../collections/foods-collection';
-import FoodsView from './foods-view';
+import FoodView from './food-view';
+
+import template from './app-template.html';
 
 var AppView = View.extend({
 
     el: '#app',
+
+    template,
 
     events: {
         'click #search-food': 'getFood'
@@ -14,22 +18,41 @@ var AppView = View.extend({
 
     initialize() {
 
-        foods.reset();
-        this.listenTo(foods, 'add', this.render);
+        this.searchFoodText = $('#seach-food-text').val();
+        this.$foodsList = $('#foods');
+        this.$stats = $('#stats');
+
+        this.listenTo(foods, 'add', this.addOne);
+
+        foods.fetch();
 
     },
 
-    renderList(food) {
+    render() {
 
-        console.log(food);
+        var calories = 0;
+        foods.each(food => {
+
+            calories += food.toJSON().calories;
+
+        });
+
+        this.$stats.html(this.template({ calories }));
+
+    },
+
+    addOne(food) {
+
+        var foodView = new FoodView({ model: food });
+        this.$foodsList.append(foodView.render().$el);
 
     },
 
     getFood() {
 
-        $('#foods').empty();
-        var searchFoodText = $('#seach-food-text').val();
-        $.getJSON('https://api.nutritionix.com/v1_1/search/' + searchFoodText + '?', {
+        this.$foodsList.empty();
+
+        $.getJSON('https://api.nutritionix.com/v1_1/search/' + this.searchFoodText + '?', {
             'results': '0:10',
             'fields': 'item_name,nf_calories',
             'appId': 'e24d74f6',
@@ -43,10 +66,6 @@ var AppView = View.extend({
                 foods.add({ name: food.fields.item_name, calories: food.fields.nf_calories });
 
             });
-            var foodsView = new FoodsView({ model: foods });
-            foodsView.render();
-
-            console.log(foods);
 
         });
 

@@ -10,6 +10,4 @@ var FoodsCollection = Collection.extend({
 
 });
 
-var foods = new FoodsCollection();
-
-module.exports = foods;
+module.exports = new FoodsCollection();
