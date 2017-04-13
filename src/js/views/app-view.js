@@ -1,5 +1,5 @@
 import { View } from 'backbone';
-import { invoke } from 'underscore';
+import { invoke, each } from 'underscore';
 import $ from 'jquery';
 
 import FoodView from './food-view';
@@ -16,12 +16,13 @@ export default View.extend({
 
     events: {
         'click #search-food': 'getData',
+        'click #clean-input': 'cleanInput',
         'click #destroy-food': 'clearData'
     },
 
     initialize() {
 
-        this.searchFoodText = $('#seach-food-text').val();
+        this.$inputTextAlert = $('#inputTextAlert');
         this.$foodsList = $('#foods');
         this.$selectedList = $('#selected');
         this.$stats = $('#stats');
@@ -31,17 +32,22 @@ export default View.extend({
         this.listenTo(selectedFoods, 'add', this.addSelected);
         this.listenTo(selectedFoods, 'all', this.render);
 
+        // get localstorage
         foods.fetch();
         selectedFoods.fetch();
 
     },
 
+    /**
+     * render total calories of selected food list
+     * 
+     */
     render() {
 
         var calories = 0;
-        selectedFoods.each(food => {
+        each(selectedFoods.toJSON(), food => {
 
-            calories += food.toJSON().calories;
+            calories += parseInt(food.calories);
 
         });
 
@@ -49,6 +55,11 @@ export default View.extend({
 
     },
 
+    /**
+     * add food into search results
+     * and render food template
+     * @param {any} food 
+     */
     addOne(food) {
 
         var foodView = new FoodView({ model: food });
@@ -56,6 +67,11 @@ export default View.extend({
 
     },
 
+    /**
+     * add food into selected collection
+     * and render selected foods list
+     * @param {any} food 
+     */
     addSelected(food) {
 
         var selectedFoodView = new SelectedFoodView({ model: food });
@@ -65,16 +81,30 @@ export default View.extend({
 
     getData() {
 
-        this.$foodsList.empty();
-        this.$loader.html('<div></div><div></div><div></div>');
+        var searchFoodText = $('#search-food-text').val();
 
-        $.getJSON('https://api.nutritionix.com/v1_1/search/' + this.searchFoodText + '?', {
+        if (!searchFoodText) {
+
+            this.$inputTextAlert.removeClass('hidden');
+            return;
+
+        }
+
+        // clear data
+        this.$foodsList.empty();
+        // show loader through css3 animation
+        this.$loader.html('<div></div><div></div><div></div>');
+        // hide input text alert
+        if (!this.$inputTextAlert.hasClass('hidden')) this.$inputTextAlert.addClass('hidden');
+
+        $.getJSON('https://api.nutritionix.com/v1_1/search/' + searchFoodText + '?', {
             'results': '0:10',
             'fields': 'item_name,nf_calories',
             'appId': 'e24d74f6',
             'appKey': 'd9c92ac01b23ea5673b1de38ca46e84c'
         }, data => {
 
+            // hide loader
             this.$loader.empty();
             foods.reset();
 
@@ -91,6 +121,13 @@ export default View.extend({
 
             });
 
+        }).fail(() => {
+
+            this.$loader.empty();
+            this.$foodsList.html('<div class="alert alert-danger alert-dismissible" role="alert">' +
+                'Oops! Search failed! Please check your connection or proxy setting and try again!' +
+                '</div>');
+
         });
 
     },
@@ -99,6 +136,12 @@ export default View.extend({
 
         invoke(foods.toArray(), 'destroy');
         this.$foodsList.empty();
+
+    },
+
+    cleanInput() {
+
+        this.$('#search-food-text').val('');
 
     }
 

@@ -1,4 +1,7 @@
 <%= name %>
-<%= calories %>
-<button class="btn btn-danger btn-xs pull-right delete-food">Delete</button>
-
+    <% if (calories>100) { %>
+        <span class="label label-warning calories"><%= calories %> cal</span>
+        <% } else { %>
+            <span class="label label-success calories"><%= calories %> cal</span>
+            <% } %>
+                <button class="btn btn-danger btn-xs pull-right delete-food">Delete</button>

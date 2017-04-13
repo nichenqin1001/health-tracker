@@ -12,7 +12,6 @@ export default View.extend({
 
     template,
 
-
     events: {
         'click .add-food': 'addFoodToSelected'
     },
@@ -26,12 +25,21 @@ export default View.extend({
     render() {
 
         this.$el.html(this.template(this.model.toJSON()));
-        this.$el.attr('id', this.model.id);
         return this;
 
     },
 
-    addFoodToSelected() {
+    /**
+     * add current model into selected collection
+     * 
+     */
+    addFoodToSelected(e) {
+
+        if (this.$el.hasClass('disabled')) return;
+
+        // hide add button
+        e.target.style.display = 'none';
+        this.$el.addClass('disabled');
 
         var newSelectedFood = new FoodModel({
             name: this.model.get('name'),

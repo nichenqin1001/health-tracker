@@ -1,7 +1,15 @@
 @import '~loaders.css';
 
-body{padding-top: 70px;}
+body {
+    padding-top: 70px;
+    background-color:#606060;
+    color: #fff;
+}
 
-.ball-pulse>div{
+#inputTextAlert{
+    margin-top: 10px;
+}
+
+.ball-pulse>div {
     background-color: orange;
 }

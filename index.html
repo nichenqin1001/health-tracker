@@ -10,7 +10,7 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-fixed-top">
+        <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">健康跟踪应用</a>
             </div>
@@ -19,10 +19,16 @@
             <div class="row">
                 <div class="col-sm-4 sidebar">
                     <div class="input-group">
-                        <input type="text" id="search-food-text" class="form-control" placeholder="Search">
-                        <span class="input-group-addon glyphicon glyphicon-search" id="search-food"></span>
+                        <input autofocus type="text" id="search-food-text" class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary glyphicon glyphicon-search" id="search-food"></button>
+                            <button type="button" class="btn btn-warning glyphicon glyphicon-remove" id="clean-input"></button>
+                        </div>
                     </div>
-                    <h2>搜索结果</h2>
+                    <div id="inputTextAlert" class="alert alert-warning hidden" role="alert">
+                        <p>It seems that you didn't input anything! You should input some words like apple, banana to get results!</p>
+                    </div>
+                    <h2>搜索结果 <button type="button" class="btn btn-danger glyphicon glyphicon-trash" id="destroy-food"></button></h2>
 
                     <div id="loader" class="loader-inner ball-pulse"></div>
 
