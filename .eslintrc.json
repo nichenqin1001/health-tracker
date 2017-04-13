@@ -18,6 +18,7 @@
         "no-unreachable": "warn",
         "no-unused-vars": "warn",
         "no-unexpected-multiline": "warn",
+        "no-loop-func": "warn",
         "constructor-super": "warn",
         "valid-typeof": "warn",
         "brace-style": [

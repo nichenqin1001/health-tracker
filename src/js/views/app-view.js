@@ -98,7 +98,7 @@ export default View.extend({
         if (!this.$inputTextAlert.hasClass('hidden')) this.$inputTextAlert.addClass('hidden');
 
         $.getJSON('https://api.nutritionix.com/v1_1/search/' + searchFoodText + '?', {
-            'results': '0:10',
+            'results': '0:15',
             'fields': 'item_name,nf_calories',
             'appId': 'e24d74f6',
             'appKey': 'd9c92ac01b23ea5673b1de38ca46e84c'
@@ -109,7 +109,7 @@ export default View.extend({
             foods.reset();
 
             var results = data.hits;
-            results.forEach((food, index) => {
+            each(results, (food, index) => {
 
                 var newFood = new FoodModel({
                     name: food.fields.item_name,
