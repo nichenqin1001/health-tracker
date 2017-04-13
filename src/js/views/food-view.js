@@ -12,6 +12,7 @@ export default View.extend({
 
     template,
 
+
     events: {
         'click .add-food': 'addFoodToSelected'
     },
@@ -19,7 +20,6 @@ export default View.extend({
     initialize() {
 
         this.listenTo(this.model, 'change', this.render);
-        selectedFoods.fetch();
 
     },
 
@@ -39,8 +39,6 @@ export default View.extend({
         });
 
         selectedFoods.create(newSelectedFood);
-
-        console.log(selectedFoods);
 
     }
 

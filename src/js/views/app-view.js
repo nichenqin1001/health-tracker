@@ -1,7 +1,9 @@
 import { View } from 'backbone';
+import { invoke } from 'underscore';
 import $ from 'jquery';
 
 import FoodView from './food-view';
+import SelectedFoodView from './selected-food-view';
 import { FoodModel, foods, selectedFoods } from '../models/food-model';
 
 import template from './app-template.html';
@@ -13,16 +15,19 @@ export default View.extend({
     template,
 
     events: {
-        'click #search-food': 'getFood'
+        'click #search-food': 'getData',
+        'click #destroy-food': 'clearData'
     },
 
     initialize() {
 
         this.searchFoodText = $('#seach-food-text').val();
         this.$foodsList = $('#foods');
+        this.$selectedList = $('#selected');
         this.$stats = $('#stats');
 
         this.listenTo(foods, 'add', this.addOne);
+        this.listenTo(selectedFoods, 'add', this.addSelected);
         this.listenTo(selectedFoods, 'all', this.render);
 
         foods.fetch();
@@ -53,7 +58,14 @@ export default View.extend({
 
     },
 
-    getFood() {
+    addSelected(food) {
+
+        var selectedFoodView = new SelectedFoodView({ model: food });
+        this.$selectedList.append(selectedFoodView.render().$el);
+
+    },
+
+    getData() {
 
         this.$foodsList.empty();
 
@@ -76,9 +88,15 @@ export default View.extend({
                 foods.create(newFood);
 
             });
-            console.log(foods);
 
         });
+
+    },
+
+    clearData() {
+
+        invoke(foods.toArray(), 'destroy');
+        this.$foodsList.empty();
 
     }
 
