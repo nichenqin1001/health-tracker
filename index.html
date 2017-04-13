@@ -12,33 +12,30 @@
     <div id="app">
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <a class="navbar-brand" href="#">健康跟踪应用</a>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <input type="text" id="search-food-text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="button" id="search-food" class="btn btn-default">搜索</button>
-                </form>
-                <!-- /.navbar-collapse -->
             </div>
-            <!-- /.container-fluid -->
         </nav>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4">
-                    <h2>搜索结果  <button type="button" id="destroy-food" class="btn btn-danger">清除</button></h2>
+                <div class="col-sm-4 sidebar">
+                    <div class="input-group">
+                        <input type="text" id="search-food-text" class="form-control" placeholder="Search">
+                        <span class="input-group-addon glyphicon glyphicon-search" id="search-food"></span>
+                    </div>
+                    <h2>搜索结果</h2>
+
+                    <div id="loader" class="loader-inner ball-pulse"></div>
+
                     <div id="foods" class="list-group"></div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-sm-8 main">
                     <h2>计算结果</h2>
                     <div id="stats"></div>
                     <h2>选择列表</h2>
                     <div id="selected" class="list-group"></div>
                 </div>
+            </div>
         </div>
-    </div>
 
 </body>
 

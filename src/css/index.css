@@ -1,1 +1,7 @@
-body { padding-top: 70px; }
+@import '~loaders.css';
+
+body{padding-top: 70px;}
+
+.ball-pulse>div{
+    background-color: orange;
+}

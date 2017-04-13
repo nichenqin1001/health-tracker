@@ -25,6 +25,7 @@ export default View.extend({
         this.$foodsList = $('#foods');
         this.$selectedList = $('#selected');
         this.$stats = $('#stats');
+        this.$loader = $('#loader');
 
         this.listenTo(foods, 'add', this.addOne);
         this.listenTo(selectedFoods, 'add', this.addSelected);
@@ -32,9 +33,6 @@ export default View.extend({
 
         foods.fetch();
         selectedFoods.fetch();
-
-        console.log(foods);
-        console.log(selectedFoods);
 
     },
 
@@ -68,6 +66,7 @@ export default View.extend({
     getData() {
 
         this.$foodsList.empty();
+        this.$loader.html('<div></div><div></div><div></div>');
 
         $.getJSON('https://api.nutritionix.com/v1_1/search/' + this.searchFoodText + '?', {
             'results': '0:10',
@@ -76,7 +75,9 @@ export default View.extend({
             'appKey': 'd9c92ac01b23ea5673b1de38ca46e84c'
         }, data => {
 
+            this.$loader.empty();
             foods.reset();
+
             var results = data.hits;
             results.forEach((food, index) => {
 
@@ -85,6 +86,7 @@ export default View.extend({
                     calories: food.fields.nf_calories,
                     id: index
                 });
+
                 foods.create(newFood);
 
             });
