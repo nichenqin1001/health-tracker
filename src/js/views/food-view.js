@@ -1,7 +1,8 @@
 import { View } from 'backbone';
-import FoodModel from '../models/food-model';
+import { FoodModel } from '../models/food-model';
+import { selectedFoods } from '../models/food-model';
+
 import template from './food-template.html';
-import selectedFoods from '../collections/selected-foods-collection';
 
 export default View.extend({
 

@@ -2,12 +2,9 @@ import { View } from 'backbone';
 import $ from 'jquery';
 
 import FoodView from './food-view';
-import foods from '../collections/foods-collection';
-import selectedFoods from '../collections/selected-foods-collection';
+import { FoodModel, foods, selectedFoods } from '../models/food-model';
 
 import template from './app-template.html';
-
-foods.fetch();
 
 export default View.extend({
 
@@ -71,7 +68,12 @@ export default View.extend({
             var results = data.hits;
             results.forEach((food, index) => {
 
-                foods.create({ name: food.fields.item_name, calories: food.fields.nf_calories, id: index });
+                var newFood = new FoodModel({
+                    name: food.fields.item_name,
+                    calories: food.fields.nf_calories,
+                    id: index
+                });
+                foods.create(newFood);
 
             });
             console.log(foods);

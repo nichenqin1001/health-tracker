@@ -1,14 +1,38 @@
-import { Model } from 'backbone';
-import { LocalStorage } from 'backbone.localstorage';
+import 'backbone.localstorage';
+import { Model, Collection, LocalStorage } from 'backbone';
 
-export default Model.extend({
+const FoodModel = Model.extend({
 
     defaults: {
         name: '',
         calories: 0,
         selected: false
-    },
-
-    localStorage: new LocalStorage('foodModel')
+    }
 
 });
+
+const FoodsCollections = Collection.extend({
+
+    model: FoodModel,
+
+    localStorage: new LocalStorage('foods')
+
+});
+
+var foods = new FoodsCollections();
+
+const SelectedFoodsCollection = Collection.extend({
+
+    model: FoodModel,
+
+    localStorage: new LocalStorage('selected-foods')
+
+});
+
+var selectedFoods = new SelectedFoodsCollection();
+
+module.exports = {
+    FoodModel,
+    foods,
+    selectedFoods
+};
