@@ -1,5 +1,5 @@
 import { View } from 'backbone';
-import { invoke, each } from 'underscore';
+import { invoke, each, reduce } from 'underscore';
 import $ from 'jquery';
 
 import FoodView from './food-view';
@@ -44,12 +44,11 @@ export default View.extend({
      */
     render() {
 
-        var calories = 0;
-        each(selectedFoods.toJSON(), food => {
+        var calories = reduce(selectedFoods.toJSON(), (calories, food) => {
 
-            calories += parseInt(food.calories);
+            return calories + parseInt(food.calories);
 
-        });
+        }, 0);
 
         this.$stats.html(this.template({ calories }));
 

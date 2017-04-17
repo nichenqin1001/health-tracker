@@ -14425,11 +14425,10 @@ exports.default = _backbone.View.extend({
      */
     render: function render() {
 
-        var calories = 0;
-        (0, _underscore.each)(_foodModel.selectedFoods.toJSON(), function (food) {
+        var calories = (0, _underscore.reduce)(_foodModel.selectedFoods.toJSON(), function (calories, food) {
 
-            calories += parseInt(food.calories);
-        });
+            return calories + parseInt(food.calories);
+        }, 0);
 
         this.$stats.html(this.template({ calories: calories }));
     },
